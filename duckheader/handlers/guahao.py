@@ -22,16 +22,6 @@ from duckheader import app
 from duckheader.handlers import BaseRequestHandler
 
 
-import httplib
-import logging
-httplib.HTTPConnection.debuglevel = 1
-logging.basicConfig()
-logging.getLogger().setLevel(logging.DEBUG)
-requests_log = logging.getLogger("requests.packages.urllib3")
-requests_log.setLevel(logging.DEBUG)
-requests_log.propagate = True
-
-
 GUAHAO_URL = "http://www.bjguahao.gov.cn/comm/ghao.php"
 
 GUAHAO_CONTENT_URL = "http://www.bjguahao.gov.cn/comm/content.php"
@@ -79,17 +69,11 @@ QUERY_LIST = [
 
 
 def get_doctor_surgery_info(hpid, keid, date):
-    params = {
-        'hpid': hpid,
-        'keid': keid,
-        'date1': date
-    }
     headers = dict()
     headers.update(HEADERS)
     headers['Referer'] = "%s?hpid=%s&keid=%s" % (GUAHAO_CONTENT_URL, hpid, keid)
     url = "%s?hpid=%s&keid=%s&date1=%s" % (GUAHAO_URL, hpid, keid, date)
     r = requests.get(url, cookies=COOKIES, headers=headers)
-    print r.text
     return parse_html(r.text)
 
 
@@ -106,9 +90,9 @@ def parse_html(html):
             continue
 
         result = dict()
-        result['日期'] = tds[0].text
-        result['星期'] = tds[1].text
-        result['午别'] = tds[2].text
+        result['日期'] = "%s %s" % (tds[0].text, tds[2].text)
+        # result['星期'] = tds[1].text
+        # result['午别'] = tds[2].text
         result['科室'] = tds[3].text
         result['医生'] = tds[4].text
         result['职称'] = tds[5].text

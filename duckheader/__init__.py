@@ -44,7 +44,6 @@ app_path = os.getcwd()
 settings = {
     'debug': True,
     'static_path': os.path.join(app_path, 'static'),
-    'static_url_prefix': r"/static/(.*)",
     'template_path': os.path.join(app_path, 'templates')
 }
 
