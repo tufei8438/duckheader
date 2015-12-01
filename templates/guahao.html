@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+  {% for surgery_info in surgery_infos %}
+  <div class="table-responsive">
+    <h1>{{ surgery_info.name }}</h1>
+    <table class="table table-bordered table-striped table-hover table-condensed">
+      <thead>
+        <tr>
+          <th>日期</th>
+          <th>星期</th>
+          <th>午别</th>
+          <th>科室</th>
+          <th>医生</th>
+          <th>职称</th>
+          <th>挂号费</th>
+          <th>可挂号</th>
+          <th>剩余号</th>
+          <th>专长</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for surgery in surgery_info.surgery %}
+        <tr>
+          <th>{{ surgery['日期'] }}</th>
+          <th>{{ surgery['星期'] }}</th>
+          <th>{{ surgery['午别'] }}</th>
+          <th>{{ surgery['科室'] }}</th>
+          <th>{{ surgery['医生'] }}</th>
+          <th>{{ surgery['职称'] }}</th>
+          <th>{{ surgery['挂号费'] }}</th>
+          <th>{{ surgery['可挂号'] }}</th>
+          <th>{{ surgery['剩余号'] }}</th>
+          <th>{{ surgery['专长'] }}</th>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <br>
+  {% endfor %}
+{% endblock %}
