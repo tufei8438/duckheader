@@ -24,7 +24,7 @@ from duckheader.handlers import BaseRequestHandler
 class WelfareLotteryHandler(BaseRequestHandler):
 
     def get(self, *args, **kwargs):
-        pass
+        self.render('lottery.html', lotteries=self.get_lottery_statics())
 
     def get_lottery_statics(self):
         redis_cli = redis.Redis()
@@ -33,5 +33,5 @@ class WelfareLotteryHandler(BaseRequestHandler):
             value = redis_cli.get('BlueBall:%d' % (i+1))
             count = value and int(value) or 0
             result.append(dict(name=i+1, count=count))
-        self.render('lottery.html', lotteries=result)
+        return result
 
