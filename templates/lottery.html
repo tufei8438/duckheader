@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body>
+  <table class="ui-table ui-border">
+    <thead>
+    <tr>
+      <th>蓝球号码</th>
+      <th>出现次数</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for lottery in lotteries %}
+    <tr>
+      <th>{{ lottery['name'] }}</th>
+      <th>{{ lottery['count'] }}</th>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <br>
+{% endblock %}
