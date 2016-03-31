@@ -33,5 +33,8 @@ class WelfareLotteryHandler(BaseRequestHandler):
             value = redis_cli.get('BlueBall:%d' % (i+1))
             count = value and int(value) or 0
             result.append(dict(name=i+1, count=count))
-        return result
+
+        def compare_count(dct):
+            return dct['count']
+        return sorted(result, key=compare_count)
 
